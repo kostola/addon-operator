@@ -33,7 +33,8 @@ func (s *integrationTestSuite) TearDownSuite() {
 }
 
 func (s *integrationTestSuite) addonCleanup(addon *addonsv1alpha1.Addon,
-	ctx context.Context) {
+	ctx context.Context,
+) {
 	s.T().Logf("waiting for addon %s to be deleted", addon.Name)
 
 	// delete Addon

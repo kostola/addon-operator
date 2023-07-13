@@ -155,7 +155,8 @@ func reportConfigurationError(addon *addonsv1alpha1.Addon, message string) {
 
 // Marks Addon as paused
 func reportAddonPauseStatus(addon *addonsv1alpha1.Addon,
-	reason string) {
+	reason string,
+) {
 	meta.SetStatusCondition(&addon.Status.Conditions, metav1.Condition{
 		Type:               addonsv1alpha1.Paused,
 		Status:             metav1.ConditionTrue,
@@ -327,6 +328,7 @@ func reportUnreadyCSV(addon *addonsv1alpha1.Addon, message string) {
 	reportPendingStatus(addon, addonsv1alpha1.AddonReasonUnreadyCSV,
 		fmt.Sprintf("ClusterServiceVersion is not ready: %s", message))
 }
+
 func reportMissingCSV(addon *addonsv1alpha1.Addon) {
 	reportPendingStatus(addon, addonsv1alpha1.AddonReasonMissingCSV, "ClusterServiceVersion is missing.")
 }
@@ -420,7 +422,8 @@ func parseAddonInstallConfigForAdditionalCatalogSources(
 	additionalCatalogSrcs []addonsv1alpha1.AdditionalCatalogSource,
 	targetNamespace string,
 	pullSecretName string,
-	stop bool) {
+	stop bool,
+) {
 	switch addon.Spec.Install.Type {
 	case addonsv1alpha1.OLMOwnNamespace:
 		for _, additionalCatalogSrc := range addon.Spec.Install.OLMOwnNamespace.AdditionalCatalogSources {

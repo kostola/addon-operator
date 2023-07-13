@@ -29,7 +29,8 @@ type monitoringFederationReconciler struct {
 }
 
 func (r *monitoringFederationReconciler) Reconcile(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (ctrl.Result, error) {
+	addon *addonsv1alpha1.Addon,
+) (ctrl.Result, error) {
 	log := controllers.LoggerFromContext(ctx)
 
 	// Possibly ensure monitoring federation
@@ -83,7 +84,8 @@ func (r *monitoringFederationReconciler) ensureMonitoringFederation(ctx context.
 }
 
 func (r *monitoringFederationReconciler) ensureMonitoringNamespace(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (ctrl.Result, error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (ctrl.Result, error) {
 	desired, err := r.desiredMonitoringNamespace(addon)
 	if err != nil {
 		return ctrl.Result{}, err
@@ -141,7 +143,8 @@ func (r *monitoringFederationReconciler) desiredMonitoringNamespace(addon *addon
 }
 
 func (r *monitoringFederationReconciler) actualMonitoringNamespace(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (*corev1.Namespace, error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (*corev1.Namespace, error) {
 	key := client.ObjectKey{
 		Name: GetMonitoringNamespaceName(addon),
 	}
@@ -211,7 +214,8 @@ func (r *monitoringFederationReconciler) desiredServiceMonitor(addon *addonsv1al
 }
 
 func (r *monitoringFederationReconciler) actualServiceMonitor(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (*monitoringv1.ServiceMonitor, error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (*monitoringv1.ServiceMonitor, error) {
 	key := client.ObjectKey{
 		Name:      GetMonitoringFederationServiceMonitorName(addon),
 		Namespace: GetMonitoringNamespaceName(addon),
@@ -266,7 +270,8 @@ func (r *monitoringFederationReconciler) ensureDeletionOfUnwantedMonitoringFeder
 func (r *monitoringFederationReconciler) getOwnedServiceMonitorsViaCommonLabels(
 	ctx context.Context,
 	c client.Client,
-	addon *addonsv1alpha1.Addon) ([]*monitoringv1.ServiceMonitor, error) {
+	addon *addonsv1alpha1.Addon,
+) ([]*monitoringv1.ServiceMonitor, error) {
 	selector := controllers.CommonLabelsAsLabelSelector(addon)
 
 	list := &monitoringv1.ServiceMonitorList{}

@@ -181,7 +181,6 @@ func timeFixture() time.Time {
 // the String method correctly returns the expected string
 // representation of the PhaseCheckHeartbeat instance.
 func TestPhaseCheckHeartbeat_String(t *testing.T) {
-
 	heartbeat := &PhaseCheckHeartbeat{}
 
 	result := heartbeat.String()

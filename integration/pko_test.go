@@ -164,7 +164,7 @@ func (s *integrationTestSuite) TestPackageOperatorReconcilerSourceParameterInjec
 	sgValues := map[string]bool{
 		"SgN": false,
 		"SgY": true,
-	}	
+	}
 
 	// create all combinations
 	var tests []TestPKOSourcesData
@@ -172,29 +172,29 @@ func (s *integrationTestSuite) TestPackageOperatorReconcilerSourceParameterInjec
 		for apK, apV := range apValues {
 			for dsK, dsV := range dsValues {
 				for pdK, pdV := range pdValues {
-					for sgK, sgV:= range sgValues {
-					pkoImage := pkoImageOptionalParams
-					    if parV {
-						    pkoImage = pkoImageRequiredParams
-					    }
+					for sgK, sgV := range sgValues {
+						pkoImage := pkoImageOptionalParams
+						if parV {
+							pkoImage = pkoImageRequiredParams
+						}
 
-					status := v1alpha1.PackageAvailable
-					if parV && (!apV || !dsV || !pdV || !sgV) {
-						status = pkov1alpha1.PackageInvalid
+						status := v1alpha1.PackageAvailable
+						if parV && (!apV || !dsV || !pdV || !sgV) {
+							status = pkov1alpha1.PackageInvalid
+						}
+
+						tests = append(tests, TestPKOSourcesData{
+							fmt.Sprintf("%s%s%s%s%s", parK, apK, dsK, pdK, sgK),
+							fmt.Sprintf("%s-%s-%s-%s-%s", strings.ToLower(parK), strings.ToLower(apK), strings.ToLower(dsK), strings.ToLower(pdK), strings.ToLower(sgK)),
+							parV, pkoImage,
+							apV, dsV, pdV, sgV,
+							status,
+						})
 					}
-
-					tests = append(tests, TestPKOSourcesData{
-						fmt.Sprintf("%s%s%s%s%s", parK, apK, dsK, pdK, sgK),
-						fmt.Sprintf("%s-%s-%s-%s-%s", strings.ToLower(parK), strings.ToLower(apK), strings.ToLower(dsK), strings.ToLower(pdK), strings.ToLower(sgK)),
-						parV, pkoImage,
-						apV, dsV, pdV, sgV,
-						status,
-					})
-				    }
-			    }
-		    }
-	    }
-    }
+				}
+			}
+		}
+	}
 	sort.Slice(tests, func(i, j int) bool {
 		return tests[i].name < tests[j].name
 	})
@@ -290,7 +290,8 @@ func (s *integrationTestSuite) createDeadMansSnitchSecret(ctx context.Context, a
 func (s *integrationTestSuite) createPagerDutySecret(ctx context.Context, addonName string, addonNamespace string) {
 	s.createSecret(ctx, addonName+"-pagerduty", addonNamespace, map[string][]byte{"PAGERDUTY_KEY": []byte(pagerDutyKeyValue)})
 }
-//create the Secret resource for SendGrid as defined here:
+
+// create the Secret resource for SendGrid as defined here:
 // - https://mt-sre.github.io/docs/creating-addons/monitoring/ocm_sendgrid_service_integration/
 func (s *integrationTestSuite) createSendGridSecret(ctx context.Context, addonName string, addonNamespace string) {
 	s.createSecret(ctx, addonName+"-smtp", addonNamespace, map[string][]byte{"host": []byte("clusterID"), "password": []byte("pwd"), "port": []byte("1111"), "tls": []byte("true"), "username": []byte("user")})

@@ -957,6 +957,7 @@ func TestHandleExit(t *testing.T) {
 		assert.Equal(t, expectedResult, result, "Expected %v, but got %v", expectedResult, result)
 	})
 }
+
 func TestAddonReconciler_ensureClusterPackageDeletion(t *testing.T) {
 	c := testutil.NewClient()
 

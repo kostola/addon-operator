@@ -148,8 +148,8 @@ func TestEnsureWantedNamespaces_AddonWithMultipleNamespaces_SingleAdoption(t *te
 	c.AssertNumberOfCalls(t, "Get", len(addonCopy.Spec.Namespaces))
 	c.AssertNumberOfCalls(t, "Create", 1)
 	c.AssertNumberOfCalls(t, "Update", 1)
-
 }
+
 func TestEnsureWantedNamespaces_AddonWithMultipleNamespaces_MultipleAdoptions(t *testing.T) {
 	c := testutil.NewClient()
 	c.On("Get", testutil.IsContext, testutil.IsObjectKey, testutil.IsCoreV1NamespacePtr, mock.Anything).
@@ -218,7 +218,6 @@ func TestEnsureNamespace_CreateWithLabelsAndAnnotations(t *testing.T) {
 			for key, value := range annotations {
 				assert.Equal(t, value, ns.Annotations[key])
 			}
-
 		}).
 		Return(nil)
 

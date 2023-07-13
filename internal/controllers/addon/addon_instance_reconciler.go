@@ -25,7 +25,8 @@ type addonInstanceReconciler struct {
 }
 
 func (r *addonInstanceReconciler) Reconcile(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (reconcile.Result, error) {
+	addon *addonsv1alpha1.Addon,
+) (reconcile.Result, error) {
 	// Ensure the creation of the corresponding AddonInstance in .spec.install.olmOwnNamespace/.spec.install.olmAllNamespaces namespace
 	if err := r.ensureAddonInstance(ctx, addon); err != nil {
 		return ctrl.Result{}, fmt.Errorf("failed to ensure the creation of addoninstance: %w", err)
@@ -39,7 +40,8 @@ func (r *addonInstanceReconciler) Name() string {
 
 // Ensures the presence of an AddonInstance well-compliant with the provided Addon object
 func (r *addonInstanceReconciler) ensureAddonInstance(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (err error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (err error) {
 	log := controllers.LoggerFromContext(ctx)
 	// not capturing "stop" because it won't ever be reached due to the guard rails of CRD Enum-Validation Markers
 	commonConfig, stop := parseAddonInstallConfig(log, addon)
@@ -70,7 +72,8 @@ func (r *addonInstanceReconciler) ensureAddonInstance(
 // Reconciles the reality to have the desired AddonInstance resource by creating it if it does not exist,
 // or updating if it exists with a different spec.
 func (r *addonInstanceReconciler) reconcileAddonInstance(
-	ctx context.Context, desiredAddonInstance *addonsv1alpha1.AddonInstance) error {
+	ctx context.Context, desiredAddonInstance *addonsv1alpha1.AddonInstance,
+) error {
 	currentAddonInstance := &addonsv1alpha1.AddonInstance{}
 	err := r.client.Get(ctx, client.ObjectKeyFromObject(desiredAddonInstance), currentAddonInstance)
 	if errors.IsNotFound(err) {

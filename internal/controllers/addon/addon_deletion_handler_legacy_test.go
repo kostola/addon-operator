@@ -136,7 +136,6 @@ func TestNotifyAddonLegacy(t *testing.T) {
 		client.AssertNotCalled(t, "Patch")
 		client.AssertExpectations(t)
 	})
-
 }
 
 func TestAckReceivedFromAddonLegacy(t *testing.T) {

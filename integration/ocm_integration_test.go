@@ -138,5 +138,4 @@ func (s *integrationTestSuite) TestAddonStatusReporting() {
 		s.Require().NotNil(addon.Status.OCMReportedStatusHash)
 		s.Require().Equal(addon.Status.OCMReportedStatusHash.StatusHash, addonutils.HashCurrentAddonStatus(addon))
 	})
-
 }

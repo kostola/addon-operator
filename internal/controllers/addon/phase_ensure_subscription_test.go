@@ -47,7 +47,6 @@ func TestEnsureSubscription_Adoption(t *testing.T) {
 	assert.NotNil(t, reconciledSubscription)
 	assert.True(t, equality.Semantic.DeepEqual(subscription.OwnerReferences, reconciledSubscription.OwnerReferences))
 	c.AssertExpectations(t)
-
 }
 
 func TestCreateSubscriptionConfigObject(t *testing.T) {

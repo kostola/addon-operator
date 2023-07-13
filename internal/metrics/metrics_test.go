@@ -159,7 +159,6 @@ func TestAddonMetrics_AddonConditions(t *testing.T) {
 	for _, isAvailable := range []metav1.ConditionStatus{metav1.ConditionTrue, metav1.ConditionFalse} {
 		for _, isPaused := range []metav1.ConditionStatus{metav1.ConditionTrue, metav1.ConditionFalse} {
 			t.Run(fmt.Sprintf("addon available: %v, addon paused: %v", available, paused), func(t *testing.T) {
-
 				// create local copy within this closure
 				addon := addon.DeepCopy()
 
@@ -189,7 +188,6 @@ func TestAddonMetrics_AddonConditions(t *testing.T) {
 					testutil.ToFloat64(recorder.addonsCount.WithLabelValues(string(paused))))
 				assert.Equal(t, float64(expectedAvailable),
 					testutil.ToFloat64(recorder.addonsCount.WithLabelValues(string(available))))
-
 			})
 		}
 	}

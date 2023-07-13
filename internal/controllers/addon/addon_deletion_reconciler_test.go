@@ -179,7 +179,6 @@ func TestAddonDeletionReconciler(t *testing.T) {
 			ExpectedReconcileResult     ctrl.Result
 			HandlerErr                  bool
 		}{
-
 			{
 				testCase:             "handler returns error",
 				HandlerErr:           true,
@@ -299,7 +298,6 @@ func TestAddonDeletionReconciler(t *testing.T) {
 			}
 		}
 	})
-
 }
 
 // The TestAddonDeletionReconciler_Name function, tests the Name

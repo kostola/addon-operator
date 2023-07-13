@@ -26,7 +26,8 @@ type namespaceReconciler struct {
 }
 
 func (r *namespaceReconciler) Reconcile(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (reconcile.Result, error) {
+	addon *addonsv1alpha1.Addon,
+) (reconcile.Result, error) {
 	// Ensure wanted namespaces
 	result, err := r.ensureWantedNamespaces(ctx, addon)
 	if err != nil {
@@ -48,7 +49,8 @@ func (r *namespaceReconciler) Name() string {
 
 // Ensure cleanup of Namespaces that are not needed anymore for the given Addon resource
 func (r *namespaceReconciler) ensureDeletionOfUnwantedNamespaces(
-	ctx context.Context, addon *addonsv1alpha1.Addon) error {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) error {
 	currentNamespaces, err := getOwnedNamespacesViaCommonLabels(ctx, r.client, addon)
 	if err != nil {
 		return err
@@ -96,7 +98,8 @@ func ensureNamespaceDeletion(ctx context.Context, c client.Client, name string) 
 
 // Get all Namespaces that have common labels matching the given Addon resource
 func getOwnedNamespacesViaCommonLabels(
-	ctx context.Context, c client.Client, addon *addonsv1alpha1.Addon) ([]corev1.Namespace, error) {
+	ctx context.Context, c client.Client, addon *addonsv1alpha1.Addon,
+) ([]corev1.Namespace, error) {
 	selector := controllers.CommonLabelsAsLabelSelector(addon)
 
 	list := &corev1.NamespaceList{}
@@ -104,7 +107,8 @@ func getOwnedNamespacesViaCommonLabels(
 		err := c.List(ctx, list, &client.ListOptions{
 			LabelSelector: client.MatchingLabelsSelector{
 				Selector: selector,
-			}})
+			},
+		})
 		if err != nil {
 			return nil, fmt.Errorf("could not list owned Namespaces: %w", err)
 		}
@@ -116,7 +120,8 @@ func getOwnedNamespacesViaCommonLabels(
 // Ensure existence of Namespaces specified in the given Addon resource
 // returns a bool that signals the caller to stop reconciliation and retry later
 func (r *namespaceReconciler) ensureWantedNamespaces(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (ctrl.Result, error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (ctrl.Result, error) {
 	var unreadyNamespaces []string
 
 	for _, namespace := range addon.Spec.Namespaces {

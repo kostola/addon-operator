@@ -24,6 +24,7 @@ func (r *mockReconciler) Reconcile(ctx context.Context, addon *addonsv1alpha1.Ad
 func (r *mockReconciler) Name() string {
 	return "MockReconciler"
 }
+
 func TestWithMonitoringStackReconciler_ApplyToAddonReconciler(t *testing.T) {
 	c := testutil.NewClient()
 

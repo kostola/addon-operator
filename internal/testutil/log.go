@@ -55,7 +55,6 @@ func (l *Logger) Enabled(level int) bool {
 
 // Init implements logr.LogSink.Init
 func (l *Logger) Init(info logr.RuntimeInfo) {
-
 }
 
 // WithValues implements logr.LogSink.WithValues

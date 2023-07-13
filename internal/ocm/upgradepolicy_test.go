@@ -51,9 +51,7 @@ func TestClientPatchUpgradePolicy(t *testing.T) {
 }
 
 func TestClientGetUpgradePolicy(t *testing.T) {
-	var (
-		recordedHttpRequest *http.Request
-	)
+	var recordedHttpRequest *http.Request
 	s := httptest.NewServer(http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		recordedHttpRequest = r
 		if r.URL.Path == "/proxy/apis/api/clusters_mgmt/v1/clusters" {

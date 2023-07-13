@@ -18,7 +18,8 @@ import (
 
 // Ensures the presence or absence of an OperatorGroup depending on the Addon install type.
 func (r *olmReconciler) ensureOperatorGroup(
-	ctx context.Context, addon *addonsv1alpha1.Addon) (requeueResult, error) {
+	ctx context.Context, addon *addonsv1alpha1.Addon,
+) (requeueResult, error) {
 	log := controllers.LoggerFromContext(ctx)
 	commonConfig, stop := parseAddonInstallConfig(log, addon)
 	if stop {
@@ -47,7 +48,8 @@ func (r *olmReconciler) ensureOperatorGroup(
 // Reconciles the Spec of the given OperatorGroup if needed by updating or creating the OperatorGroup.
 // The given OperatorGroup is updated to reflect the latest state from the kube-apiserver.
 func (r *olmReconciler) reconcileOperatorGroup(
-	ctx context.Context, operatorGroup *operatorsv1.OperatorGroup) error {
+	ctx context.Context, operatorGroup *operatorsv1.OperatorGroup,
+) error {
 	currentOperatorGroup := &operatorsv1.OperatorGroup{}
 
 	err := r.client.Get(ctx, client.ObjectKeyFromObject(operatorGroup), currentOperatorGroup)

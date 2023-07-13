@@ -134,7 +134,6 @@ func (s *integrationTestSuite) TestAddon() {
 	})
 
 	s.Run("subscription_csv status", func() {
-
 		subscription := &operatorsv1alpha1.Subscription{}
 		{
 			err := integration.Client.Get(ctx, client.ObjectKey{
@@ -165,7 +164,6 @@ func (s *integrationTestSuite) TestAddon() {
 	})
 
 	s.Run("test_subscription_config", func() {
-
 		subscription := &operatorsv1alpha1.Subscription{}
 
 		err := integration.Client.Get(ctx, client.ObjectKey{
@@ -187,7 +185,6 @@ func (s *integrationTestSuite) TestAddon() {
 	})
 
 	s.T().Cleanup(func() {
-
 		s.addonCleanup(addon, ctx)
 
 		// assert that CatalogSource is gone
@@ -712,5 +709,4 @@ func (s *integrationTestSuite) TestAddonDeletionFlow() {
 		timeoutCond := meta.FindStatusCondition(addon.Status.Conditions, addonsv1alpha1.DeleteTimeout)
 		s.Require().Nil(timeoutCond)
 	})
-
 }

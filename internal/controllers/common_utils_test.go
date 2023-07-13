@@ -164,7 +164,6 @@ func TestAddCommonAnnotations(t *testing.T) {
 // TestCurrentNamespace tests the CurrentNamespace function to ensure it
 // behaves correctly under different scenarios.
 func TestCurrentNamespace(t *testing.T) {
-
 	tests := []struct {
 		name          string
 		wantNamespace string

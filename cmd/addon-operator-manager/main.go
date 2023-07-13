@@ -58,7 +58,8 @@ func initReconcilers(mgr ctrl.Manager,
 	enableRecorder bool,
 	addonOperatorInCluster addonsv1alpha1.AddonOperator,
 	enableStatusReporting bool,
-	opts ...addoncontroller.AddonReconcilerOptions) error {
+	opts ...addoncontroller.AddonReconcilerOptions,
+) error {
 	ctx := context.Background()
 
 	// Create a client that does not cache resources cluster-wide.

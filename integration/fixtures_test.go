@@ -288,7 +288,8 @@ func subscription_TestResourceAdoption() *operatorsv1alpha1.Subscription {
 	return &operatorsv1alpha1.Subscription{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      fmt.Sprintf("addon-%s", referenceAddonName),
-			Namespace: referenceAddonNamespace},
+			Namespace: referenceAddonNamespace,
+		},
 		Spec: &operatorsv1alpha1.SubscriptionSpec{
 			CatalogSource:          referenceAddonName,
 			CatalogSourceNamespace: referenceAddonNamespace,

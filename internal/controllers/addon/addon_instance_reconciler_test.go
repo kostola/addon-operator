@@ -131,7 +131,6 @@ func TestEnsureAddonInstance(t *testing.T) {
 							reconciledInstance = args.Get(1).(*addonsv1alpha1.AddonInstance)
 						}).
 						Return(nil)
-
 				} else {
 					// Create path
 					c.
@@ -262,7 +261,6 @@ func TestEnsureAddonInstance(t *testing.T) {
 						assert.Equal(t, addonsv1alpha1.AddonReasonConfigError, availableCond.Reason)
 					}
 				}
-
 			})
 		}
 	})

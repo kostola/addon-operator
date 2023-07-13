@@ -86,7 +86,7 @@ func TestAddonReconciler_handleUpgradePolicyStatusReporting(t *testing.T) {
 			Recorder:  recorder,
 		}
 
-		var Version = "1.0.0"
+		Version := "1.0.0"
 
 		log := testutil.NewLogger(t)
 		addon := &addonsv1alpha1.Addon{
@@ -161,7 +161,7 @@ func TestAddonReconciler_handleUpgradePolicyStatusReporting(t *testing.T) {
 		}
 		log := testutil.NewLogger(t)
 
-		var Version = "1.0.0"
+		Version := "1.0.0"
 
 		err := r.handleUpgradePolicyStatusReporting(
 			context.Background(),
@@ -193,7 +193,7 @@ func TestAddonReconciler_handleUpgradePolicyStatusReporting(t *testing.T) {
 		mockSummary := testutil.NewSummaryMock()
 		recorder.InjectOCMAPIRequestDuration(mockSummary)
 
-		var Version = "1.0.0"
+		Version := "1.0.0"
 
 		r := &AddonReconciler{
 			Client:    client,

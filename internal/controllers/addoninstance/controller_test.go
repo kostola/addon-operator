@@ -155,10 +155,10 @@ func TestController(t *testing.T) {
 			require.NoError(t, c.Get(ctx, client.ObjectKeyFromObject(&tc.Request.Instance), &updatedInstance))
 
 			if tc.ShouldFail {
-				//Conditions are unchanged
+				// Conditions are unchanged
 				testutil.AssertConditionsMatch(t, tc.Request.Instance.Status.Conditions, updatedInstance.Status.Conditions)
 			} else {
-				//Conditions are updataed
+				// Conditions are updataed
 				testutil.AssertConditionsMatch(t, tc.Result.Conditions, updatedInstance.Status.Conditions)
 			}
 		})

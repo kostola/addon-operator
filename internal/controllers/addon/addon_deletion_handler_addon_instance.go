@@ -41,7 +41,8 @@ func (a *addonInstanceDeletionHandler) NotifyAddon(ctx context.Context, addon *a
 
 func (a *addonInstanceDeletionHandler) AckReceivedFromAddon(
 	ctx context.Context,
-	addon *addonsv1alpha1.Addon) (bool, error) {
+	addon *addonsv1alpha1.Addon,
+) (bool, error) {
 	currentAddonInstance := &addonsv1alpha1.AddonInstance{}
 	addonNS := GetCommonInstallOptions(addon).Namespace
 	if err := a.fetchAddonInstance(ctx, addonNS, currentAddonInstance); err != nil {
@@ -56,7 +57,8 @@ func (a *addonInstanceDeletionHandler) AckReceivedFromAddon(
 }
 
 func (a *addonInstanceDeletionHandler) fetchAddonInstance(
-	ctx context.Context, addonNS string, instance *addonsv1alpha1.AddonInstance) error {
+	ctx context.Context, addonNS string, instance *addonsv1alpha1.AddonInstance,
+) error {
 	addonInstanceKey := types.NamespacedName{
 		Name:      addonsv1alpha1.DefaultAddonInstanceName,
 		Namespace: addonNS,
@@ -65,7 +67,8 @@ func (a *addonInstanceDeletionHandler) fetchAddonInstance(
 }
 
 func hasReadyToBeDeletedStatusCondition(
-	instance *addonsv1alpha1.AddonInstance, expectedValue metav1.ConditionStatus) bool {
+	instance *addonsv1alpha1.AddonInstance, expectedValue metav1.ConditionStatus,
+) bool {
 	requiredCond := meta.FindStatusCondition(
 		instance.Status.Conditions,
 		addonsv1alpha1.AddonInstanceConditionReadyToBeDeleted.String(),

@@ -110,7 +110,6 @@ func TestClient_PostAddOnStatus(t *testing.T) {
 	}
 
 	res, err := client.PostAddOnStatus(context.Background(), payload)
-
 	// Check the result
 	if err != nil {
 		t.Errorf("Client.PostAddOnStatus() error = %v", err)

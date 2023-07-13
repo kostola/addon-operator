@@ -181,7 +181,8 @@ func (r *addonSecretPropagationReconciler) cleanupUnknownSecrets(
 }
 
 func reconcileSecret(
-	ctx context.Context, c client.Client, desiredSecret *corev1.Secret) error {
+	ctx context.Context, c client.Client, desiredSecret *corev1.Secret,
+) error {
 	actualSecret := &corev1.Secret{}
 	err := c.Get(ctx, client.ObjectKeyFromObject(desiredSecret), actualSecret)
 	if errors.IsNotFound(err) {

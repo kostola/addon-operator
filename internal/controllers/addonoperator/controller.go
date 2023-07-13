@@ -57,7 +57,8 @@ func (r *AddonOperatorReconciler) SetupWithManager(mgr ctrl.Manager) error {
 }
 
 func enqueueAddonOperator(ctx context.Context, h handler.EventHandler,
-	q workqueue.RateLimitingInterface, p ...predicate.Predicate) error {
+	q workqueue.RateLimitingInterface, p ...predicate.Predicate,
+) error {
 	q.Add(reconcile.Request{NamespacedName: types.NamespacedName{
 		Name: addonsv1alpha1.DefaultAddonOperatorName,
 	}})
@@ -65,8 +66,8 @@ func enqueueAddonOperator(ctx context.Context, h handler.EventHandler,
 }
 
 func (r *AddonOperatorReconciler) Reconcile(
-	ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-
+	ctx context.Context, req ctrl.Request,
+) (ctrl.Result, error) {
 	log := r.Log.WithValues("addon-operator", req.NamespacedName.String())
 
 	addonOperator := &addonsv1alpha1.AddonOperator{}
@@ -139,7 +140,8 @@ func areSlicesEquivalent(sliceA []string, sliceB []string) bool {
 
 // Creates an OCM API client and injects it into the OCM Client Manager for distribution.
 func (r *AddonOperatorReconciler) handleOCMClient(
-	ctx context.Context, log logr.Logger, addonOperator *addonsv1alpha1.AddonOperator) error {
+	ctx context.Context, log logr.Logger, addonOperator *addonsv1alpha1.AddonOperator,
+) error {
 	if addonOperator.Spec.OCM == nil {
 		return nil
 	}
@@ -167,9 +169,9 @@ func (r *AddonOperatorReconciler) handleOCMClient(
 		ocm.WithClusterExternalID(r.ClusterExternalID),
 	)
 
-	//ocm client not initialized, usually because the OCM API is not yet
-	//available or because the ClusterID from the ClusterVersion doesn't
-	//properly translate into an internal_id
+	// ocm client not initialized, usually because the OCM API is not yet
+	// available or because the ClusterID from the ClusterVersion doesn't
+	// properly translate into an internal_id
 	if c == nil {
 		log.Info("delaying ocm client initialization until the OCM API is available")
 		return nil
@@ -182,7 +184,8 @@ func (r *AddonOperatorReconciler) handleOCMClient(
 }
 
 func (r *AddonOperatorReconciler) handleGlobalPause(
-	ctx context.Context, addonOperator *addonsv1alpha1.AddonOperator) error {
+	ctx context.Context, addonOperator *addonsv1alpha1.AddonOperator,
+) error {
 	// Check if addonoperator.spec.paused == true
 	if addonOperator.Spec.Paused {
 		// Check if Paused condition has already been reported

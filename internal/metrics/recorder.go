@@ -48,7 +48,6 @@ var (
 )
 
 func NewRecorder(register bool, clusterId string) *Recorder {
-
 	addonsCount := prometheus.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Name:        "addon_operator_addons_count",
@@ -164,7 +163,6 @@ func (r *Recorder) SetAddonOperatorPaused(paused bool) {
 		r.addonOperatorPaused.Set(1)
 	} else {
 		r.addonOperatorPaused.Set(0)
-
 	}
 }
 
@@ -241,7 +239,6 @@ func (r *Recorder) RecordAddonMetrics(addon *addonsv1alpha1.Addon) {
 }
 
 func (r *Recorder) recordAddonHealthInfo(addon *addonsv1alpha1.Addon) {
-
 	var (
 		// `healthStatus` defaults to unknown unless status conditions say otherwise
 		healthStatus = 2
@@ -258,7 +255,6 @@ func (r *Recorder) recordAddonHealthInfo(addon *addonsv1alpha1.Addon) {
 		default:
 			healthStatus = 2
 		}
-
 	}
 
 	addonVersion := "0.0.0" // default value when addon version is missing

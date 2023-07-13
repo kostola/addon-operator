@@ -28,7 +28,8 @@ func NewStatusError(msg string) *k8sApiErrors.StatusError {
 
 // NewAddonWithInstallSpec returns an Addon object with the specified InstallSpec
 func NewAddonWithInstallSpec(installSpec addonsv1alpha1.AddonInstallSpec,
-	addonName string) *addonsv1alpha1.Addon {
+	addonName string,
+) *addonsv1alpha1.Addon {
 	return &addonsv1alpha1.Addon{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: addonName,

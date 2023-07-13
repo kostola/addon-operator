@@ -28,7 +28,6 @@ func TestClientDo_Success(t *testing.T) {
 		} else {
 			fmt.Fprintln(rw, `{"response":"works!"}`)
 		}
-
 	}))
 	defer s.Close()
 
@@ -113,7 +112,6 @@ func TestClientDo_Success(t *testing.T) {
 			}
 		})
 	}
-
 }
 
 func TestClientDo_Error(t *testing.T) {

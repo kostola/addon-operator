@@ -24,7 +24,8 @@ type olmReconciler struct {
 }
 
 func (r *olmReconciler) Reconcile(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (ctrl.Result, error) {
+	addon *addonsv1alpha1.Addon,
+) (ctrl.Result, error) {
 	log := controllers.LoggerFromContext(ctx)
 
 	var err error

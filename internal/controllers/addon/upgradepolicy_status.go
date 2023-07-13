@@ -164,7 +164,8 @@ func (r *AddonReconciler) reportUpgradeCompleted(ctx context.Context, addon *add
 }
 
 func (r *AddonReconciler) handlePatchUpgradePolicy(ctx context.Context,
-	req ocm.UpgradePolicyPatchRequest) (err error) {
+	req ocm.UpgradePolicyPatchRequest,
+) (err error) {
 	r.recordOCMRequestDuration(func() {
 		_, err = r.ocmClient.PatchUpgradePolicy(ctx, req)
 	})
@@ -173,7 +174,8 @@ func (r *AddonReconciler) handlePatchUpgradePolicy(ctx context.Context,
 }
 
 func (r *AddonReconciler) handleGetUpgradePolicyState(ctx context.Context,
-	req ocm.UpgradePolicyGetRequest) (res ocm.UpgradePolicyGetResponse, err error) {
+	req ocm.UpgradePolicyGetRequest,
+) (res ocm.UpgradePolicyGetResponse, err error) {
 	r.recordOCMRequestDuration(func() {
 		res, err = r.ocmClient.GetUpgradePolicy(ctx, req)
 	})

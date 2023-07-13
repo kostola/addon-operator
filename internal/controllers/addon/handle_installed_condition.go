@@ -14,7 +14,8 @@ import (
 )
 
 func (r *olmReconciler) handleInstalledCondition(ctx context.Context,
-	addon *addonsv1alpha1.Addon, addonCSVRef *operatorsv1.RichReference) (requeueResult, error) {
+	addon *addonsv1alpha1.Addon, addonCSVRef *operatorsv1.RichReference,
+) (requeueResult, error) {
 	// Handle missing CSV, addon might have been uninstalled?.
 	if addonCSVRef == nil {
 		return r.handleMissingCSV(ctx, addon)

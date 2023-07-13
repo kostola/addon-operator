@@ -92,13 +92,15 @@ type StatusClient struct {
 var _ client.StatusWriter = &StatusClient{}
 
 func (c *StatusClient) Update(
-	ctx context.Context, obj client.Object, opts ...client.SubResourceUpdateOption) error {
+	ctx context.Context, obj client.Object, opts ...client.SubResourceUpdateOption,
+) error {
 	args := c.Called(ctx, obj, opts)
 	return args.Error(0)
 }
 
 func (c *StatusClient) Patch(
-	ctx context.Context, obj client.Object, patch client.Patch, opts ...client.SubResourcePatchOption) error {
+	ctx context.Context, obj client.Object, patch client.Patch, opts ...client.SubResourcePatchOption,
+) error {
 	args := c.Called(ctx, obj, patch, opts)
 	return args.Error(0)
 }

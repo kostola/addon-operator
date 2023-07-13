@@ -36,8 +36,8 @@ func (r *monitoringStackReconciler) Name() string {
 }
 
 func (r *monitoringStackReconciler) Reconcile(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (ctrl.Result, error) {
-
+	addon *addonsv1alpha1.Addon,
+) (ctrl.Result, error) {
 	// ensure creation of MonitoringStack object
 	latestMonitoringStack, err := r.ensureMonitoringStack(ctx, addon)
 	if err != nil {
@@ -56,7 +56,8 @@ func (r *monitoringStackReconciler) Reconcile(ctx context.Context,
 }
 
 func (r *monitoringStackReconciler) ensureMonitoringStack(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (*obov1alpha1.MonitoringStack, error) {
+	addon *addonsv1alpha1.Addon,
+) (*obov1alpha1.MonitoringStack, error) {
 	if !HasMonitoringStack(addon) {
 		return nil, errMonitoringStackSpecNotFound
 	}
@@ -114,8 +115,8 @@ func (r *monitoringStackReconciler) propagateMonitoringStackStatusToAddon(monito
 
 // helper function to generate desired MonitoringStack object
 func (r *monitoringStackReconciler) getDesiredMonitoringStack(ctx context.Context,
-	addon *addonsv1alpha1.Addon) (*obov1alpha1.MonitoringStack, error) {
-
+	addon *addonsv1alpha1.Addon,
+) (*obov1alpha1.MonitoringStack, error) {
 	commonConfig, stop := parseAddonInstallConfig(controllers.LoggerFromContext(ctx), addon)
 	if stop {
 		return nil, fmt.Errorf("error parsing Addon config")
@@ -172,8 +173,8 @@ func getMonitoringStackName(addonName string) string {
 }
 
 func (r *monitoringStackReconciler) reconcileMonitoringStack(ctx context.Context,
-	desiredMonitoringStack *obov1alpha1.MonitoringStack) (*obov1alpha1.MonitoringStack, error) {
-
+	desiredMonitoringStack *obov1alpha1.MonitoringStack,
+) (*obov1alpha1.MonitoringStack, error) {
 	// get existing MonitoringStack
 	currentMonitoringStack := &obov1alpha1.MonitoringStack{}
 	if err := r.client.Get(ctx, client.ObjectKey{

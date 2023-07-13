@@ -278,7 +278,6 @@ func TestEnsureCatalogSourceNetworkPolicy_Adoption(t *testing.T) {
 		},
 	} {
 		t.Run(name, func(t *testing.T) {
-
 			addon := newNetworkPolicyTestAddon()
 			if tc.AlreadyOwned {
 				require.NoError(t, controllerutil.SetControllerReference(

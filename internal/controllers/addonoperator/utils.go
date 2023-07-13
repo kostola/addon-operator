@@ -24,8 +24,8 @@ type ocmClientManager interface {
 }
 
 func (r *AddonOperatorReconciler) handleAddonOperatorCreation(
-	ctx context.Context, log logr.Logger) error {
-
+	ctx context.Context, log logr.Logger,
+) error {
 	defaultAddonOperator := &addonsv1alpha1.AddonOperator{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: addonsv1alpha1.DefaultAddonOperatorName,
@@ -42,7 +42,8 @@ func (r *AddonOperatorReconciler) handleAddonOperatorCreation(
 // Marks AddonOperator as available
 func (r *AddonOperatorReconciler) reportAddonOperatorReadinessStatus(
 	ctx context.Context,
-	addonOperator *addonsv1alpha1.AddonOperator) error {
+	addonOperator *addonsv1alpha1.AddonOperator,
+) error {
 	meta.SetStatusCondition(&addonOperator.Status.Conditions, metav1.Condition{
 		Type:               addonsv1alpha1.AddonOperatorAvailable,
 		Status:             metav1.ConditionTrue,
@@ -59,7 +60,8 @@ func (r *AddonOperatorReconciler) reportAddonOperatorReadinessStatus(
 // Marks AddonOperator as paused
 func (r *AddonOperatorReconciler) reportAddonOperatorPauseStatus(
 	ctx context.Context,
-	addonOperator *addonsv1alpha1.AddonOperator) error {
+	addonOperator *addonsv1alpha1.AddonOperator,
+) error {
 	meta.SetStatusCondition(&addonOperator.Status.Conditions, metav1.Condition{
 		Type:               addonsv1alpha1.AddonOperatorPaused,
 		Status:             metav1.ConditionTrue,
@@ -74,7 +76,8 @@ func (r *AddonOperatorReconciler) reportAddonOperatorPauseStatus(
 
 // remove Paused condition from AddonOperator
 func (r *AddonOperatorReconciler) removeAddonOperatorPauseCondition(
-	ctx context.Context, addonOperator *addonsv1alpha1.AddonOperator) error {
+	ctx context.Context, addonOperator *addonsv1alpha1.AddonOperator,
+) error {
 	meta.RemoveStatusCondition(&addonOperator.Status.Conditions, addonsv1alpha1.Paused)
 	addonOperator.Status.ObservedGeneration = addonOperator.Generation
 	return r.Status().Update(ctx, addonOperator)
